@@ -1,0 +1,57 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.errormsg {
+    color: #d9534f;
+}
+
+.sidebarleft {
+    border-right: 2px solid #333333;
+}
+
+#headerbar li {
+    display: inline;
+    float: left;
+}
+
+#headerbartop {
+    display: block;
+
+}
+
+.members {
+width: 20%;
+    float: right;
+    background-color: #e5e5e5;
+}
+
+.list {
+    width: 80%;
+    float: left;
+}
+
+#datetoday {
+    box-sizing: content-box;
+    width: 250px;
+}
+
+.btn-xl {
+    text-decoration: none;
+    margin: 0;
+}
+
+#projectitem a {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+}
+
+a:-webkit-any-link {
+    
+    text-decoration: none;
+}
+
+#listshared {
+    background-color: #fff;
+}
