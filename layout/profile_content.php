@@ -6,7 +6,7 @@
   <h2>Profile</h2>
   </div>
    <hr class="g-brd-gray-light-v4 g-mx-minus-30">
- <div class="col-md-4 g-mb-30">
+ <div class="col-md-4 g-mb-30 g-pl-0 g-pr-0">
     <!-- Figure -->
     <figure class="u-info-v7-1 g-brd-around g-brd-gray-light-v4 g-bg-white g-rounded-4 text-center">
       <div class="g-py-40 g-px-20">

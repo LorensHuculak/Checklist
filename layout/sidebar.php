@@ -29,11 +29,25 @@
                   
                             <div class="align-items-center flex-sm-row g-mt-20 g-mt-0--lg g-mb-0 " id="navBar">
                 <ul class="navbar-nav ml-auto text-uppercase g-font-weight-600">
-              <li id="projectitem" class="nav-item">
+                
+                
+                <?php 
+                    
+            
+			/* } */
+			$lists = $lists->getLists();
+			foreach($lists as $item): 
+		?>
+			     <li id="projectitem" class="nav-item">
                  <a href="#" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
- Webtechnologie 2
+<?php echo $item['listname']; ?>
                                </a></li>
 
+		<?php endforeach; ?>
+                
+                
+                
+         
                                
                                
                                

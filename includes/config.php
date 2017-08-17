@@ -5,14 +5,16 @@ session_start();
 //set timezone
 date_default_timezone_set('Europe/London');
 
+
+
 //database credentials
 define('DBHOST','localhost');
 define('DBUSER','root');
 define('DBPASS','');
-define('DBNAME','testlogin');
+define('DBNAME','checklist');
 
 //application address
-define('SITEURL','/loginregister-master');
+define('SITEURL','/checklist');
 
 try {
 
@@ -26,7 +28,24 @@ try {
     exit;
 }
 
+
+
 //include the user class, pass in the database connection
-include('classes/user.php');
+include 'classes/user.php';
+
+spl_autoload_register(function($filename){
+	include 'classes/' .$filename . '.class.php';
+});
+
+
 $user = new User($db);
+$lists = new Lists($db);
+
+/*$tasks = new Task($db);
+$foreign = new Foreign($db);
+$comments = new Comment($db);*/
+
+
+
+
 ?>
