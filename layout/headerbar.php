@@ -11,9 +11,9 @@
             <!-- End Logo -->
               <div id="datetoday">
                  <span class="u-icon-v1 g-color-primary"><i class="icon-hotel-restaurant-056 u-line-icon-pro u-line-icon-pro"></i></span>
-                  <a href="#" ><?php 
+                 <?php 
                       $date = date('d F Y', time());
-                      echo $date ?></a>
+                      echo $date ?>
                 </div>
             
 
@@ -21,7 +21,9 @@
             <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
               <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
              
-
+  <li class="nav-item g-mx-20--lg">
+                  <a href="edit_profile.php" class="nav-link g-px-0">Courses</a>
+                </li>
 
 
                 <li class="nav-item g-mx-20--lg">

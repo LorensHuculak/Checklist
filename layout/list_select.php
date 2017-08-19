@@ -4,7 +4,8 @@
 <ul class="list-unstyled">
  
  <?php 
-		$tasks = $tasks->getTasks();
+
+		$tasks = $tasks->getListTasks();
 		foreach($tasks as $item):
 	?>
  
@@ -13,7 +14,7 @@
       <img class="g-width-50 g-height-50 rounded-circle" src="assets/img/temp/img7.jpg" alt="Image Description">
     </div>
     <div class="align-self-center g-px-10">
-      <a href="task_page.php?id=<?php echo $item['tasksID']; ?>"><h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
+      <a href="task_page.php"><h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
         <span class="g-mr-5"><?php echo $item['taskname']; ?></span>
         
         	<?php
@@ -65,7 +66,15 @@
     <div class="align-self-center ml-auto ">
     
      
-               
+               <div class="align-self-center g-px-10">
+                 <a  href="delete_list.php">
+      <h5 class="h6 g-font-weight-600 g-color-red g-mb-3 g-pl-35 ">
+          <i class="fa fa-trash g-mr-5"> </i>
+        <span class="g-mr-5 ">Delete List</span>
+      </h5>
+                   </a>
+
+    </div>
     </div>
   </li>
 </ul>

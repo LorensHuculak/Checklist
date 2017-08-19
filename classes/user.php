@@ -3,6 +3,55 @@ include('password.php');
 class User extends Password{
 
     private $_db;
+    private $username;
+    private $email;
+    private $password;
+    private $usersid;
+    
+      public function getUsersID()
+        {
+            return $this->usersid;
+        }
+
+ 
+        public function setUsersID($username)
+        {
+            $this->usersid = $usersid;
+        }
+    
+       public function getUsername()
+        {
+            return $this->username;
+        }
+
+ 
+        public function setUsername($username)
+        {
+            $this->username = $username;
+        }
+        
+		
+       public function getEmail()
+        {
+            return $this->email;
+        }
+
+ 
+        public function setEmail($email)
+        {
+            $this->email = $email;
+        }
+        
+        public function getPassword()
+        {
+            return $this->password;
+        }
+
+ 
+        public function setPassword($password)
+        {
+            $this->password = $password;
+        }
 
     function __construct($db){
     	parent::__construct();
@@ -39,6 +88,7 @@ class User extends Password{
 		    $_SESSION['usersID'] = $row['usersID'];
 		    return true;
 		}
+        
 	}
 
 	public function logout(){
@@ -50,8 +100,100 @@ class User extends Password{
 			return true;
 		}
 	}
+    
+    
+    //OWN
+    
+    public function isAdmin () {
+        
+        
+    }
+    
+    
+        public function getUsers()
+    {
+$conn = Db::getInstance();
+      
+            $usersid = $_SESSION['usersID'];
+        $statement = $conn->prepare("SELECT * FROM users WHERE usersid != :usersid");
+               $statement->bindValue(":usersid", $usersid);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        return $result;
+    }
+    
+           public function getSingleUser()
+    {
+$conn = Db::getInstance();
+      
+        
+        $statement = $conn->prepare("SELECT * FROM users WHERE usersID = :usersID");
+               $statement->bindValue(":usersID", $_GET['id']);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        return $result;
+    }
+    
+     public function editProfile()
+    {
+        $conn = Db::getInstance();
+         
+$usersid = $_SESSION['usersID'];
+   
+        $statement = $conn->prepare("UPDATE users SET username = :username, email = :email WHERE usersid = :usersid");
+        $statement->bindValue(":username", $this->getUsername());
+        $statement->bindValue(":email", $this->getEmail());
+        $statement->bindValue(":usersid", $usersid);
+        $statement->execute();
+    
+       $updatename = $this->getUsername();
+    $_SESSION['username'] = $updatename;
+        
+    }
+    
+    
+    public function upload_avatar($file){ //upload_avatar($file)
+			if(!empty($file['name'])){
+				$file_name = $file['name'];
+				$temp_name = $file['tmp_name'];
+				$imgtype = $file['type'];
+				$ext = $this->getImageExtention($imgtype);
+				$target_path = "uploads/avatar/".$file_name;
+
+				if(move_uploaded_file($temp_name, $target_path)){
+					$query = 'UPDATE users SET avatar="'.$this->db->real_escape_string($file['name']).'" WHERE id="'.$this->getUserID().'"';
+
+					if($this->db->query($query)){
+						echo "<div class='suc-message' id='message'>Avatar succesvol geupdate!</div>";
+					}else{
+						return "<div class='err-message' id='message'>Error" . $query . "<br>" . $this->db->error . "</div>";
+					}
+				}
+			}
+		}
+
+		public function getImageExtention($imagetype){
+			if(empty($imagetype)){
+				return false;
+			}else{
+				switch($imagetype){
+					case 'image/bmp': return '.bmp';
+					case 'image/gif': return '.gif';
+					case 'image/jpeg': return '.jpg';
+					case 'image/png': return '.png';
+					default: return false;
+				}
+			}
+		}
+    
 
 }
+
+
 
 
 ?>

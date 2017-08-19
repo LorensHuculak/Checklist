@@ -1,14 +1,14 @@
 <?php 
 
 
-$username = $_SESSION['username'];
+$usersid = $_SESSION['usersID'];
 
   if (!empty($_POST)) {
       
             $createList = new Lists();
 
            $createList->setListName($_POST['listname']);
-            $createList->setListOwner($username);
+            $createList->setListOwner($usersid);
         $createList->setPrivacy($_POST['public']);
             $createList->addList();
       
@@ -19,7 +19,7 @@ $username = $_SESSION['username'];
 <!-- General Forms -->
 <form class="g-pa-30 g-mb-30" action="" method="post">
 <div class="row">
- <a href="javascript:history.back()"><span class="u-icon-v1 g-color-primary g-mr-20 g-mt-2"><i class="icon-arrow-left u-line-icon-pro u-line-icon-pro"></i></span></a>
+ <a href="home.php"><span class="u-icon-v1 g-color-primary g-mr-20 g-mt-2"><i class="icon-arrow-left u-line-icon-pro u-line-icon-pro"></i></span></a>
   <h2>New List</h2>
   </div>
    <hr class="g-brd-gray-light-v4 g-mx-minus-30">

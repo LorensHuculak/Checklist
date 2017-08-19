@@ -1,9 +1,10 @@
 <?php
 	class Lists {
         
+        private $listsid;
         private $listName;
-                private $listOwner;
-                private $privacy;
+        private $listOwner;
+        private $privacy;
         
 		
        public function getListName()
@@ -38,6 +39,17 @@
         {
             $this->privacy = $privacy;
         }
+        
+           public function getListsID()
+        {
+            return $this->listsid;
+        }
+
+ 
+        public function setListsID($listsid)
+        {
+            $this->listsid = $listsid;
+        }
 
 
         
@@ -59,13 +71,47 @@ $conn = Db::getInstance();
     public function getLists()
     {
 $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM lists");
+        $usersid = $_SESSION['usersID'];
+        $statement = $conn->prepare("SELECT * FROM lists WHERE listowner = :listOwner");
+        $statement->bindValue(':listOwner', $usersid);
         $statement->execute();
 
         $result = $statement->fetchAll();
         return $result;
     }
 		
+    
+         public function getPublicLists()
+    {
+$conn = Db::getInstance();
+             
+             $public = "1";
+        $statement = $conn->prepare("SELECT * FROM lists WHERE public = :privacy and listowner = :listowner");
+             $statement->bindValue(':privacy', $public);  
+                     $statement->bindValue(':listowner', $_GET['id']);  
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        return $result;
+    }
+		
+             
+        
+        
+        
+    public function deleteList()
+    {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("DELETE FROM lists WHERE listname = :listname");
+        $statement->bindValue(':listname', $_GET['name']);
+        if ($statement->execute()) {
+            return true;
+        } else {
+            throw new \Exception("nothing to delete");
+        }
+    }
+        
+        
     }
 
 

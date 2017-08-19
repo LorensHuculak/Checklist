@@ -1,4 +1,10 @@
+<?php 
 
+$users = new User($db);
+$item = $users->getSingleUser();
+
+
+?>
 <!-- General Forms -->
 <div class="g-pa-30 g-mb-30">
   <div class="row">
@@ -15,11 +21,11 @@
         <!-- Figure Image -->
 
         <!-- Figure Info -->
-        <h4 class="h5 mb-4">Mikel Andrews</h4>
+        <h4 class="h5 mb-4"><?php echo $item[0]['username']; ?></h4>
         <div class="d-block">
           <span class="u-info-v7-1__item-child-v2 g-color-gray-dark-v4 g-bg-gray-light-v5 g-font-size-default g-rounded-25 g-py-5 g-px-20 g-mr-3">
             <i class="g-color-primary mr-1 fa fa-circle-thin"></i>
-            Member
+            <?php echo $item[0]['type']; ?>
           </span>
         </div>
         <!-- End Figure Info -->
@@ -30,11 +36,19 @@
     
     
     <ul id="listshared" class="list-unstyled">
+    
+     <?php 
+   
+        $lists = new Lists();
+		$lists = $lists->getPublicLists();
+		foreach($lists as $item):
+	?>
+    
   <li class="d-flex justify-content-start g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-minus-1">
    
     <div class="align-self-center g-px-10">
       <h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
-        <span class="g-mr-5">List Title</span>
+        <span class="g-mr-5"><?php echo $item['listname']; ?></span>
         
       </h5>
     </div>
@@ -43,7 +57,8 @@
           </a>
     </div>
   </li>
-   
+      
+   <?php endforeach; ?>
   
     </ul>
 

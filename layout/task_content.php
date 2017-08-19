@@ -1,4 +1,10 @@
+<?php 
 
+// $tasks = new Tasks();
+$item = $tasks->getSingleTask();
+
+
+?>
 <!-- General Forms -->
 <div class="g-pa-30 g-mb-30">
   <div class="row">
@@ -12,10 +18,28 @@
     </div>
     <div class="align-self-center g-px-10">
       <h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
-        <span class="g-mr-5">Edmon Low</span>
-        <span class="u-label u-label--sm g-bg-green g-rounded-20 g-px-10">$35 / hr</span>
+        <span class="g-mr-5"><?php echo $item[0]['taskname']; ?></span>
+       <?php
+						$current = new DateTime("now");
+						$deadline = new DateTime($item[0]['deadline']);
+						$interval = $current->diff($deadline);
+        
+        
+            
+            if($interval->format('%r%a days') > 14){
+							echo "<span class='u-label u-label--sm g-bg-green g-rounded-20 g-ml-5 g-px-10'>" . $interval->days . "d</span>";
+						}else if($interval->format('%r%a days') > 0){
+							echo "<span class='u-label u-label--sm g-bg-orange g-rounded-20 g-ml-5 g-px-10'>" . $interval->days . "d</span>";
+						}else{
+							echo "<span class='u-label u-label--sm g-bg-red g-rounded-20 g-ml-5 g-px-10'>Expired</span>";
+						}
+            
+            
+            ?>
       </h5>
-      <p class="m-0">Adipiscing elitut leosit amet, consectetur eleifend</p>
+      
+      
+      <p class="m-0"><?php echo $item[0]['course'] . " - " . $item[0]['worktime'] . "h Estimated Work Time"; ?></p>
     </div>
     <div class="align-self-center ml-auto">
       <span class="g-font-size-12 g-color-green">4k+ earned</span>

@@ -57,11 +57,12 @@ if(isset($_POST['submit'])){
 		try {
 
 			//insert into database with a prepared statement
-			$stmt = $db->prepare('INSERT INTO users (username,password,email) VALUES (:username, :password, :email)');
+			$stmt = $db->prepare('INSERT INTO users (username,password,email,type) VALUES (:username, :password, :email, :type)');
 			$stmt->execute(array(
 				':username' => $_POST['username'],
 				':password' => $hashedpassword,
-				':email' => $_POST['email']
+				':email' => $_POST['email'],
+                ':type' => "Student"
 			));
 			$id = $db->lastInsertId('usersID');
 

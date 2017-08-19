@@ -29,6 +29,13 @@ try {
 }
 
 
+// Specific Post Getter
+if(isset($_GET['page'])){
+	if(file_exists('layout/'.$_GET['page'].'.php')){
+		include('layout/'.$_GET['page'].'.php');
+	}
+}
+
 
 //include the user class, pass in the database connection
 include 'classes/user.php';
@@ -40,9 +47,10 @@ spl_autoload_register(function($filename){
 
 $user = new User($db);
 $lists = new Lists($db);
+$tasks = new Tasks($db);
+$courses = new Courses($db)
 
-/*$tasks = new Task($db);
-$foreign = new Foreign($db);
+/*$foreign = new Foreign($db);
 $comments = new Comment($db);*/
 
 

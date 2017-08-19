@@ -18,7 +18,9 @@
               </a>
               <!-- End Logo -->
               
-              <h3 class="g-mb-40">Lorens</h3>
+              <h3 class="g-mb-40"><?php 
+                  $username = $_SESSION["username"];
+                  echo $username; ?></h3>
     
               
         
@@ -27,27 +29,21 @@
            
                         
                   
-                            <div class="align-items-center flex-sm-row g-mt-20 g-mt-0--lg g-mb-0 " id="navBar">
+           <div class="align-items-center flex-sm-row g-mt-20 g-mt-0--lg g-mb-0 " id="navBar">
                 <ul class="navbar-nav ml-auto text-uppercase g-font-weight-600">
-                
-                
-                <?php 
+               <?php 
                     
             
 			/* } */
 			$lists = $lists->getLists();
 			foreach($lists as $item): 
 		?>
-			     <li id="projectitem" class="nav-item">
-                 <a href="#" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
+			     <li id="courseitem" class="nav-item">
+                 <a href="list_filter.php?name=<?php echo $item['listname']; ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
 <?php echo $item['listname']; ?>
                                </a></li>
 
 		<?php endforeach; ?>
-                
-                
-                
-         
                                
                                
                                
@@ -58,17 +54,25 @@
                                
                                
                             </ul>
-          <hr class="g-mx-minus-15">
+                          <hr class="g-mx-minus-15">
                         </div>
-                          
 
+           
                      <div class="align-items-center flex-sm-row g-mt-20 g-mt-0--lg g-mb-40 " id="navBar">
                 <ul class="navbar-nav ml-auto text-uppercase g-font-weight-600">
-              <li id="projectitem" class="nav-item">
-                 <a href="#" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
- Webtechnologie 2
+               <?php 
+                    
+            
+			/* } */
+			$courses = $courses->getCourses();
+			foreach($courses as $item): 
+		?>
+			     <li id="courseitem" class="nav-item">
+                 <a href="course_filter.php?name=<?php echo $item['coursename']; ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
+<?php echo $item['coursename']; ?>
                                </a></li>
 
+		<?php endforeach; ?>
                                
                                
                                
