@@ -43,7 +43,7 @@ $usersid = $_SESSION['usersID'];
   </label>
   <!-- Checkbox -->
   
-<button type="submit" name="add_list" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add List</button>
+<button href="new_list.php" type="submit" name="add_list" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Add List</button>
 
 
 </form>

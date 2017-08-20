@@ -59,11 +59,14 @@ $conn = Db::getInstance();
         
         
         
-    public function deleteCourse()
+   public function deleteCourse( $courseid )
     {
         $conn = Db::getInstance();
-        $statement = $conn->prepare("DELETE FROM courses WHERE coursesid = :listsid");
-        $statement->bindValue(':coursesid', $this->getListsID());
+       
+
+        $statement = $conn->prepare("DELETE FROM courses WHERE coursesID = :coursesID");
+        $statement->bindValue(':coursesID', $courseid);
+
         if ($statement->execute()) {
             return true;
         } else {

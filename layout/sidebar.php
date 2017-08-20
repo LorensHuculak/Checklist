@@ -1,4 +1,12 @@
-  <!-- Sidebar Navigation -->
+<?php 
+
+$users = new User($db);
+$item = $users->getProfilePicture();
+
+?>
+   
+
+       <!-- Sidebar Navigation -->
     <div id="js-header" class="u-header u-header--side"
             data-header-position="left"
             data-header-breakpoint="lg">
@@ -13,17 +21,21 @@
               <!-- End Responsive Toggle Button -->
            
               <!-- Logo -->
-              <a href="home.php" class="navbar-brand g-mb-40--lg">
-                <img src="assets/img/temp/img7.jpg" alt="Image Description">
+              <a href="home.php" class="g-mb-40" id="homelink">
+                  <div id="mainpic" style="background: url('assets/img/uploads/<?php echo $item[0]['picture']; ?>') ;"  alt="Image Description"></div>
               </a>
               <!-- End Logo -->
-              
               <h3 class="g-mb-40"><?php 
                   $username = $_SESSION["username"];
-                  echo $username; ?></h3>
+                  echo $username; 
+                  
+                
+?></h3>
     
               
-        
+    
+
+
 
               <!-- Navigation -->
            
@@ -31,6 +43,8 @@
                   
            <div class="align-items-center flex-sm-row g-mt-20 g-mt-0--lg g-mb-0 " id="navBar">
                 <ul class="navbar-nav ml-auto text-uppercase g-font-weight-600">
+                
+                <h5 class="g-color-primary g-mb-20 g-font-weight-600 text-center">LISTS</h5>
                <?php 
                     
             
@@ -54,10 +68,10 @@
                                
                                
                             </ul>
-                          <hr class="g-mx-minus-15">
+        
                         </div>
 
-           
+           <h5 class="g-color-primary g-font-weight-600 g-mt-40 g-mb-20">COURSES</h5>
                      <div class="align-items-center flex-sm-row g-mt-20 g-mt-0--lg g-mb-40 " id="navBar">
                 <ul class="navbar-nav ml-auto text-uppercase g-font-weight-600">
                <?php 
@@ -75,12 +89,14 @@
 		<?php endforeach; ?>
                                
                                
-                               
-                               <a href="new_course.php" class="btn btn-xl u-btn-outline-lightgray g-mr-10 g-mb-15 rounded-0">
+                           <?php if(isset($_SESSION['admin'])){
+				
+			  
+                             echo  '<a href="new_course.php" class="btn btn-xl u-btn-outline-lightgray g-mr-10 g-mb-15 rounded-0">
   <i class="fa fa-plus g-mr-10"></i>New Course
-</a>
+</a>';
                                
-                               
+                               	} ?>  
                                
                             </ul>
     
@@ -94,7 +110,6 @@
               <div class="text-center hidden-lg-down">
 
 
-                <p class="mb-0">2017 @ Checklist</p>
               </div>
             </div>
           </nav>

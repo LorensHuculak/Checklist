@@ -75,12 +75,13 @@
       $(document).on('ready', function () {
         $.HSCore.helpers.HSModalMarkup.init('.js-modal-markup');
 
+          
         $.HSCore.components.HSMarkupCopy.init('.js-copy');
       });
     </script>
 
     <!-- JS Custom -->
-    <script src="../../../assets/js/custom.js"></script>
+    <script src="assets/js/custom.js"></script>
 
     <!-- JS Plugins Init. -->
     <script>

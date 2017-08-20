@@ -98,12 +98,14 @@ $conn = Db::getInstance();
              
         
         
-        
-    public function deleteList()
+   public function deleteList($listname)
     {
         $conn = Db::getInstance();
+       
+
         $statement = $conn->prepare("DELETE FROM lists WHERE listname = :listname");
-        $statement->bindValue(':listname', $_GET['name']);
+        $statement->bindValue(':listname', $listname);
+
         if ($statement->execute()) {
             return true;
         } else {

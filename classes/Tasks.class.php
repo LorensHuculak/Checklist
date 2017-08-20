@@ -178,8 +178,54 @@ $conn = Db::getInstance();
     }
 		
 		
+      public function deleteTask($tasksid)
+    {
+        $conn = Db::getInstance();;
+        $statement = $conn->prepare("DELETE FROM tasks WHERE tasksID = :tasksID");
+        $statement->bindValue(':tasksID', $tasksid);
+       $statement->execute();
+    }  
+	     
+    public function deleteTasks($parentlist)
+    {
+        $conn = Db::getInstance();;
+        $statement = $conn->prepare("DELETE FROM tasks WHERE parentlist = :parentlist");
+        $statement->bindValue(':parentlist', $parentlist);
+       $statement->execute();
+    }
         
-	
+          public function updateTask()
+    {
+  $conn = Db::getInstance();;
+   
+        $statement = $conn->prepare("UPDATE tasks SET taskname = :taskname, course = :course, deadline = :deadline, worktime = :worktime, owner = :owner, parentlist = :parentlist WHERE tasksID = :tasksid");
+                   $statement -> bindValue(":tasksid", $_GET['id']);
+     $statement -> bindValue(":taskname", $this->getTaskName());
+        $statement -> bindValue(":course", $this->getCourse());
+        $statement -> bindValue(":deadline", $this->getDeadline());
+        $statement->bindValue(":worktime", $this->getWorkTime());
+              $statement -> bindValue(":owner", $this->getOwner());
+        $statement -> bindValue(":parentlist", $this->getParentList());
+
+        $statement->execute();
+    
+    }
+        
+        
+        public function getHours(){
+    
+   
+      $conn = Db::getInstance();
+      
+
+        $statement = $conn->prepare("SELECT SUM(worktime) AS totalwork FROM tasks WHERE owner = :usersid;");
+                 $statement -> bindValue(":usersid", $this->getUsersID);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        $sumhours = $result[0]['totalwork'];
+        return $sumhours;
+}
         
         
   

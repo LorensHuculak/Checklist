@@ -38,20 +38,20 @@ if(isset($_GET['page'])){
 
 
 //include the user class, pass in the database connection
-include 'classes/user.php';
+include $_SERVER['DOCUMENT_ROOT'].'/checklist/classes/user.php';
 
 spl_autoload_register(function($filename){
-	include 'classes/' .$filename . '.class.php';
+	include $_SERVER['DOCUMENT_ROOT'].'/checklist/classes/' .$filename . '.class.php';
 });
 
 
 $user = new User($db);
 $lists = new Lists($db);
 $tasks = new Tasks($db);
-$courses = new Courses($db)
-
+$courses = new Courses($db);
+$comments = new Comments($db);
 /*$foreign = new Foreign($db);
-$comments = new Comment($db);*/
+*/
 
 
 

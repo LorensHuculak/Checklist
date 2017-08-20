@@ -20,10 +20,14 @@
             <!-- Navigation -->
             <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
               <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
-             
-  <li class="nav-item g-mx-20--lg">
-                  <a href="edit_profile.php" class="nav-link g-px-0">Courses</a>
-                </li>
+             	<?php if(isset($_SESSION['admin'])){
+
+			
+  echo '<li class="nav-item g-mx-20--lg">
+                  <a href="courses.php" class="nav-link g-px-0">Courses</a>
+                </li>';
+      
+      	} ?>
 
 
                 <li class="nav-item g-mx-20--lg">

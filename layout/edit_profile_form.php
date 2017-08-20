@@ -7,18 +7,29 @@
             $updateUser = new User($db);
       
             
-      
+
         $updateUser->setUsername($_POST['username']);
         $updateUser->setEmail($_POST['email']);
+      $updateUser->setPicture($_FILES['picture']['name']);
       
-            $updateUser->editProfile();
+    $updateUser->editProfile();
+      $updateUser->uploadPicture();
       
-        }
+
+      
+      
+  }
+    
+
+
+
+
+
 
 
 ?>
 <!-- General Forms -->
-<form method="post" class="g-pa-30 g-mb-30">
+<form enctype="multipart/form-data" method="post" class="g-pa-30 g-mb-30">
   <div class="row">
  <a href="home.php"><span class="u-icon-v1 g-color-primary g-mr-20 g-mt-2"><i class="icon-arrow-left u-line-icon-pro u-line-icon-pro"></i></span></a>
   <h2>Edit Profile</h2>
@@ -41,17 +52,11 @@
   <!-- End Text Input -->
 
 
-<!-- File Inputs -->
-  <!-- Plain File Input -->
-  <div class="form-group mb-0">
-    <p>Profile Picture</p>
-    <label class="u-file-attach-v2 g-color-gray-dark-v5 mb-0">
-      <input id="fileAttachment" type="file">
-      <i class="icon-cloud-upload g-font-size-16 g-pos-rel g-top-2 g-mr-5"></i>
-      <span class="js-value">Attach file</span>
-    </label>
+   <div class="form-group g-mb-25">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" name="picture" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+
   </div>
-  <!-- End Plain File Input -->
   
 <button type="submit" class="btn btn-outline-primary g-mr-10 g-mt-20 rounded-0">Save Changes</button>
 

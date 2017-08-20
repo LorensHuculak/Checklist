@@ -52,6 +52,17 @@ class User extends Password{
         {
             $this->password = $password;
         }
+    
+     public function getPicture()
+        {
+            return $this->picture;
+        }
+
+ 
+        public function setPicture($picture)
+        {
+            $this->picture = $picture;
+        }
 
     function __construct($db){
     	parent::__construct();
@@ -86,8 +97,21 @@ class User extends Password{
 		    $_SESSION['loggedin'] = true;
 		    $_SESSION['username'] = $row['username'];
 		    $_SESSION['usersID'] = $row['usersID'];
+            
+            $check = $this->isAdmin();            
+            if ($check) {
+                     $_SESSION ['admin'] = 'admin';  
+            }
+            
+     
+            
+            
 		    return true;
+            
+            
 		}
+        
+      
         
 	}
 
@@ -105,8 +129,23 @@ class User extends Password{
     //OWN
     
     public function isAdmin () {
+  $conn = Db::getInstance();
+      
+            $usersid = $_SESSION['usersID'];
+        $statement = $conn->prepare("SELECT type FROM users WHERE usersid = :usersid");
+               $statement->bindValue(":usersid", $usersid);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        if ($result[0][type] != 'Student' ) {
+            return true;
+        }
         
-        
+        else {
+            
+            return false;
+        }
     }
     
     
@@ -138,6 +177,22 @@ $conn = Db::getInstance();
         return $result;
     }
     
+         public function getHours(){
+    
+   $conn = Db::getInstance();
+
+        $statement = $conn->prepare("SELECT SUM(worktime) AS totalwork FROM tasks WHERE owner = :usersid;");
+                 $statement -> bindValue(":usersid", $_GET['id']);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        $sumhours = $result[0]['totalwork'];
+        return $sumhours;
+}
+        
+
+    
+    
      public function editProfile()
     {
         $conn = Db::getInstance();
@@ -156,27 +211,33 @@ $usersid = $_SESSION['usersID'];
     }
     
     
-    public function upload_avatar($file){ //upload_avatar($file)
-			if(!empty($file['name'])){
+    public function uploadPicture(){ //upload_avatar($file)
+	
+        $file = $_FILES['picture'];
+        
+        	if(!empty($file)){
 				$file_name = $file['name'];
 				$temp_name = $file['tmp_name'];
 				$imgtype = $file['type'];
-				$ext = $this->getImageExtention($imgtype);
-				$target_path = "uploads/avatar/".$file_name;
+				$ext = $this->getExtension($imgtype);
+				$target_path = "assets/img/uploads/".$file_name;
 
 				if(move_uploaded_file($temp_name, $target_path)){
-					$query = 'UPDATE users SET avatar="'.$this->db->real_escape_string($file['name']).'" WHERE id="'.$this->getUserID().'"';
-
-					if($this->db->query($query)){
-						echo "<div class='suc-message' id='message'>Avatar succesvol geupdate!</div>";
-					}else{
-						return "<div class='err-message' id='message'>Error" . $query . "<br>" . $this->db->error . "</div>";
-					}
+                    
+			        $conn = Db::getInstance();
+         
+$usersid = $_SESSION['usersID'];
+        $statement = $conn->prepare("UPDATE users SET picture = :picture WHERE usersid = :usersid");
+        $statement->bindValue(":picture", $this->getPicture());
+        $statement->bindValue(":usersid", $usersid);
+        $statement->execute();
+                    
 				}
 			}
+        
 		}
 
-		public function getImageExtention($imagetype){
+		public function getExtension($imagetype){
 			if(empty($imagetype)){
 				return false;
 			}else{
@@ -190,8 +251,23 @@ $usersid = $_SESSION['usersID'];
 			}
 		}
     
+    public function getProfilePicture() {
+        
+        $conn = Db::getInstance();
+      
+        $usersid = $_SESSION['usersID'];
+        $statement = $conn->prepare("SELECT picture FROM users WHERE usersID = :usersID");
+               $statement->bindValue(":usersID", $usersid);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        return $result;
+    }
 
 }
+
+
 
 
 
