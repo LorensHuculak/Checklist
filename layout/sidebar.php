@@ -22,11 +22,11 @@ $item = $users->getProfilePicture();
            
               <!-- Logo -->
               <a href="home.php" class="g-mb-40" id="homelink">
-                  <div id="mainpic" style="background: url('assets/img/uploads/<?php echo $item[0]['picture']; ?>') ;"  alt="Image Description"></div>
+                  <div id="mainpic" style="background: url('assets/img/uploads/<?php echo htmlspecialchars($item[0]['picture']); ?>') ;"  alt="Image Description"></div>
               </a>
               <!-- End Logo -->
               <h3 class="g-mb-40"><?php 
-                  $username = $_SESSION["username"];
+                  $username = htmlspecialchars($_SESSION["username"]);
                   echo $username; 
                   
                 
@@ -53,18 +53,40 @@ $item = $users->getProfilePicture();
 			foreach($lists as $item): 
 		?>
 			     <li id="courseitem" class="nav-item">
-                 <a href="list_filter.php?name=<?php echo $item['listname']; ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
-<?php echo $item['listname']; ?>
+                 <a href="list_filter.php?name=<?php echo htmlspecialchars($item['listname']); ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
+<?php echo htmlspecialchars($item['listname']); ?>
                                </a></li>
 
 		<?php endforeach; ?>
-                               
+                              
+        
+                 <?php                  
+                                              
+			$foreigns = new Foreigns();
+			$foreigns = $foreigns->getForeigns();
+			foreach($foreigns as $fitem): 
+		?>
+			     <li id="courseitem" class="nav-item">
+                 <a href="foreign_filter.php?name=<?php echo htmlspecialchars($fitem['listname']); ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-300 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
+<?php echo htmlspecialchars($fitem['listname']); ?>
+                               </a></li>
+
+		<?php endforeach; ?>                
                                
                                
                                <a href="new_list.php" class="btn btn-xl u-btn-outline-lightgray g-mr-10 g-mb-15 rounded-0">
   <i class="fa fa-plus g-mr-10"></i>New List
 </a>
+                              
+                              
+                         
                                
+                 
+                              
+        
+                               
+                               
+                                                       
                                
                                
                             </ul>
@@ -82,8 +104,8 @@ $item = $users->getProfilePicture();
 			foreach($courses as $item): 
 		?>
 			     <li id="courseitem" class="nav-item">
-                 <a href="course_filter.php?name=<?php echo $item['coursename']; ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
-<?php echo $item['coursename']; ?>
+                 <a href="course_filter.php?name=<?php echo htmlspecialchars($item['coursename']); ?>" class="btn btn-xl btn-block u-btn-outline-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-none rounded-0 g-mb-15">
+<?php echo htmlspecialchars($item['coursename']); ?>
                                </a></li>
 
 		<?php endforeach; ?>

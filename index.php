@@ -1,21 +1,20 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to home page
-if( $user->is_logged_in() ){ header('Location: home.php'); }
+//REDITECT
+if( $user->isLoggedIn() ){ header('Location: home.php'); }
 
-//if form has been submitted process it
 if(isset($_POST['submit'])){
 
-	//very basic validation
+	// BASIC FORM VALIDATION (Github -> David Carr)
 	if(strlen($_POST['username']) < 3){
 		$error[] = 'Username is too short.';
 	} else {
-		$stmt = $db->prepare('SELECT username FROM users WHERE username = :username');
-		$stmt->execute(array(':username' => $_POST['username']));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$statement = $db->prepare('SELECT username FROM users WHERE username = :username');
+		$statement->execute(array(':username' => $_POST['username']));
+		$result = $statement->fetch(PDO::FETCH_ASSOC);
 
-		if(!empty($row['username'])){
-			$error[] = 'Username provided is already in use.';
+		if(!empty($result['username'])){
+			$error[] = 'Username is already in use.';
 		}
 
 	}
@@ -32,46 +31,47 @@ if(isset($_POST['submit'])){
 		$error[] = 'Passwords do not match.';
 	}
 
-	//email validation
+
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 	    $error[] = 'Please enter a valid email address';
 	} else {
-		$stmt = $db->prepare('SELECT email FROM users WHERE email = :email');
-		$stmt->execute(array(':email' => $_POST['email']));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$statement = $db->prepare('SELECT email FROM users WHERE email = :email');
+		$statement->execute(array(':email' => $_POST['email']));
+		$result = $statement->fetch(PDO::FETCH_ASSOC);
 
-		if(!empty($row['email'])){
+		if(!empty($result['email'])){
 			$error[] = 'Email provided is already in use.';
 		}
 
 	}
 
 
-	//if no errors have been created carry on
+	//NO ERRORS 
 	if(!isset($error)){
 
-		//hash the password
-		$hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
-
+		//HASH PASSWORD
+		$password = $_POST['password'];
+            $options = [
+                    'cost' => 12,
+                ];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT, $options);
+      
 
 		try {
 
-			//insert into database with a prepared statement
-			$stmt = $db->prepare('INSERT INTO users (username,password,email,type) VALUES (:username, :password, :email, :type)');
-			$stmt->execute(array(
+			$statement = $db->prepare('INSERT INTO users (username,password,email,type) VALUES (:username, :password, :email, :type)');
+			$statement->execute(array(
 				':username' => $_POST['username'],
-				':password' => $hashedpassword,
+				':password' => $hashedPassword,
 				':email' => $_POST['email'],
                 ':type' => "Student"
 			));
-			$id = $db->lastInsertId('usersID');
-
-
-			//redirect to index page
-			header('Location: index.php?action=joined');
+            
+		
+			header('Location: index.php?action=registrated');
 			exit;
 
-		//else catch the exception and show the error.
+		//CATCH ERROR
 		} catch(PDOException $e) {
 		    $error[] = $e->getMessage();
 		}
@@ -110,7 +110,7 @@ require('layout/header_login.php');
 				}
 
 				//if action is joined show sucess
-				if(isset($_GET['action']) && $_GET['action'] == 'joined'){
+				if(isset($_GET['action']) && $_GET['action'] == 'registrated'){
 					echo "<h2 class='text-center bg-success'>Registration Succesful!</h2>";
 				}
 				?>
@@ -163,6 +163,6 @@ require('layout/header_login.php');
 
 
 <?php
-//include header template
+
 require('layout/footer.php');
 ?>

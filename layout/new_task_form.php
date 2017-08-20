@@ -49,7 +49,7 @@ $state = "0";
 			$courses = $courses->getCourses();
 			foreach($courses as $item): 
 		?>
-			     <option value="<?php echo $item['coursename']; ?>">
+			     <option value="<?php echo htmlspecialchars($item['coursename']); ?>">
                 
 <?php echo $item['coursename']; ?>
                      </option>
@@ -88,7 +88,7 @@ $state = "0";
 			$lists = $lists->getLists();
 			foreach($lists as $item): 
 		?>
-			     <option value="<?php echo $item['listname']; ?>">
+			     <option value="<?php echo htmlspecialchars($item['listname']); ?>">
                 
 <?php echo $item['listname']; ?>
                      </option>

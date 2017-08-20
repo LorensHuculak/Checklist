@@ -22,6 +22,7 @@ body {
 
 .members {
 width: 20%;
+    height: 92vh;;
     float: right;
     background-color: #e5e5e5;
 }
@@ -54,4 +55,65 @@ a:-webkit-any-link {
 
 #listshared {
     background-color: #fff;
+}
+
+#mainprofile {
+    height: 200px;
+    width: 200px;
+    background-position: center center;
+}
+
+#homelink {
+    width: 150px;
+    height: 150px;
+    display: block;
+  
+}
+
+#mainpic {
+    width: 150px;
+    height: 150px;
+     display: block;
+    border-radius: 50%;
+        background-size: cover !important;
+  background-position: top center !important;
+}
+
+#listpic {
+    
+      width: 80px;
+    height: 80px;
+     display: block;
+    border-radius: 50%;
+        background-size: cover !important;
+  background-position: top center !important;
+}
+
+#profilepic {
+    
+      width: 100px;
+    height: 100px;
+        background-size: cover !important;
+  background-position: top center !important;
+    margin: 0 auto;
+}
+#commentpic {
+    
+      width: 50px;
+    height: 50px;
+        background-size: cover !important;
+  background-position: top center !important;
+    margin: 0 auto;
+}
+
+.bg-success {
+    background-color: #fff!important;
+    text-align: left;
+    color: #72C234;
+}
+
+.bg-danger {
+    background-color: #fff!important;
+    text-align: left;
+    color: #FF0000;
 }

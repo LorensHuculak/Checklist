@@ -149,7 +149,7 @@ $conn = Db::getInstance();
     }
         
 
-        
+       // LISTS FILTER 
     public function getListTasks()
     {
 $conn = Db::getInstance();
@@ -163,7 +163,42 @@ $conn = Db::getInstance();
         return $result;
     }
         
+        // FOLLOW FILTER
+         public function getForeignTasks()
+    {
+$conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM tasks WHERE parentlist = :parentlist ORDER BY deadline asc");
+          $statement -> bindValue(":parentlist",  $_GET['name']);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        return $result;
+    }
+        
+        
+        // PERMISSION TASK MANIPULATION
+             public function getOwnership()
+    {
+$conn = Db::getInstance();
              
+        $usersid = $_SESSION['usersID'];
+        $taskid = $_GET['id'];
+        $statement = $conn->prepare("SELECT tasksID FROM tasks WHERE tasksID = :tasksID and owner = :owner");
+        $statement->bindValue(':tasksID', $taskid);  
+        $statement->bindValue(':owner', $usersid);  
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+    
+     
+        if (!empty($result[0]['tasksID'])) {
+        return $result[0]['tasksID'];
+            } else {
+            return false;
+        }
+    }
+        
+              // COURSE FILTER 
     public function getCourseTasks()
     {
 $conn = Db::getInstance();
@@ -211,7 +246,31 @@ $conn = Db::getInstance();
     
     }
         
+          // CHECKBOX - DEADLINE STATE
         
+        public function setDone($taskid){
+             $conn = Db::getInstance();;
+            
+            $state = "1";
+               $statement = $conn->prepare("UPDATE tasks SET state = :state WHERE tasksID = :tasksid");
+               $statement -> bindValue(":state", $state );
+            $statement -> bindValue(":tasksid", $taskid);
+              $statement->execute();
+            
+        }
+        
+          public function setUndone($taskid){
+             $conn = Db::getInstance();;
+            
+            $state = "0";
+               $statement = $conn->prepare("UPDATE tasks SET state = :state WHERE tasksID = :tasksid");
+               $statement -> bindValue(":state", $state );
+            $statement -> bindValue(":tasksid", $taskid);
+              $statement->execute();
+            
+        }
+        
+          //  GET TOTAL WORKTIME
         public function getHours(){
     
    
@@ -226,6 +285,24 @@ $conn = Db::getInstance();
         $sumhours = $result[0]['totalwork'];
         return $sumhours;
 }
+        
+// CHECK IF DONE
+           public function checkState($taskid){
+    
+   
+      $conn = Db::getInstance();
+      
+
+        $statement = $conn->prepare("SELECT state FROM tasks WHERE tasksID = :taskid;");
+        $statement -> bindValue(":taskid", $taskid);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+            $currentstate = $result[0]['state'];
+     return $currentstate;
+}
+        
+      
         
         
   

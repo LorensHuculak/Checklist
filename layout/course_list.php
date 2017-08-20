@@ -18,13 +18,13 @@
    
     <div class="align-self-center g-px-10">
       <h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
-        <span class="g-mr-5"><?php echo $item['coursename']; ?></span>
+        <span class="g-mr-5"><?php echo htmlspecialchars($item['coursename']); ?></span>
         
       </h5>
     </div>
     <div class="align-self-center ml-auto">
          
-         <a data-id="<?php echo $item['coursesid']; ?>" class="deleteCourse" href="#">
+         <a data-id="<?php echo htmlspecialchars($item['coursesid']); ?>" class="deleteCourse" href="#">
          
            <span class="u-icon-v1 g-color-red">     <i class="fa fa-trash g-mr-5"> </i></span>
            

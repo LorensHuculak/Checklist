@@ -4,8 +4,6 @@
 
 if (!empty($_POST)) {
     
-
-
     $tasks = new Tasks();
     $tasks->deleteTask($_POST['tasksid']);
 }

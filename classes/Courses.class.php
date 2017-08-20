@@ -43,6 +43,9 @@ $conn = Db::getInstance();
         $statement->execute();
             
 		}
+        
+        
+        
 
     public function getCourses()
     {
@@ -56,8 +59,6 @@ $conn = Db::getInstance();
 		
         
 	
-        
-        
         
    public function deleteCourse( $courseid )
     {

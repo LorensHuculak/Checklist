@@ -32,7 +32,7 @@ $usersid = $_SESSION['usersID'];
    
     <div class="align-self-center g-px-10">
       <h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
-        <span class="g-mr-5"><?php echo $item[0]['taskname']; ?></span>
+        <span class="g-mr-5"><?php echo htmlspecialchars($item[0]['taskname']); ?></span>
        <?php
 						$current = new DateTime("now");
 						$deadline = new DateTime($item[0]['deadline']);
@@ -53,12 +53,24 @@ $usersid = $_SESSION['usersID'];
       </h5>
       
       
-      <p class="m-0"><?php echo $item[0]['course'] . " - " . $item[0]['worktime'] . "h Estimated Work Time"; ?></p>
+      <p class="m-0"><?php echo htmlspecialchars($item[0]['course']) . " - " . $item[0]['worktime'] . "h Estimated Work Time"; ?></p>
     </div>
-    <div class="align-self-center ml-auto">
-           <span ><a class="g-color-gray-dark-v4" href="edit_task.php?id=<?php echo $item[0]['tasksID']; ?>"><i class="fa fa-cog g-mr-15"></i></a></span>
-      <span ><a  data-id="<?php echo $_GET['id']; ?>" class="deleteTask" class="g-color-red" href="home.php"><i class="fa fa-trash g-mr-15 g-color-red"></i></a></span>
-    </div>
+    
+    
+    <?php  
+
+        
+         if (!empty($owner = $tasks->getOwnership())) {
+             
+             echo '<div class="align-self-center ml-auto">
+           <span ><a class="g-color-gray-dark-v4" href="edit_task.php?id=' . $item[0]['tasksID'] . '"><i class="fa fa-cog g-mr-15"></i></a></span>
+      <span ><a  data-id="' . $_GET['id'] . '" class="deleteTask" class="g-color-red" href="home.php"><i class="fa fa-trash g-mr-15 g-color-red"></i></a></span>
+    </div>';
+             
+         } 
+    
+    ?>
+  
   </div>
   </div>
   
@@ -92,17 +104,17 @@ $comments = new Comments();
   
 <div class="media g-brd-around g-pa-30 g-mb-20">
 
-   <div id="commentpic" class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" style="background: url('assets/img/uploads/<?php echo $item['picture']; ?>') ;"></div>
+   <div id="commentpic" class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" style="background: url('assets/img/uploads/<?php echo htmlspecialchars($item['picture']); ?>') ;"></div>
   <div class="media-body">
     <div class="g-mb-15">
       <h5 class="d-flex justify-content-between align-items-center h5 g-color-gray-dark-v1 mb-0">
-        <span class="d-block g-mr-10"><?php echo $item['username']; ?></span>
+        <span class="d-block g-mr-10"><?php echo htmlspecialchars($item['username']); ?></span>
         
       </h5>
 
     </div>
 
-    <p><?php echo $item['message']; ?></p>
+    <p><?php echo htmlspecialchars($item['message']); ?></p>
 
     </div>
   </div>
